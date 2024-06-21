@@ -1,4 +1,4 @@
-from app import hello,start
+from app import hello,start,goodbye
 
 
 if __name__== "__main__":
@@ -6,4 +6,7 @@ if __name__== "__main__":
 
     hello()
     start()
-    
+    goodbye()
+
+
+    # авторизация регистрация
