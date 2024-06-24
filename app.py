@@ -44,24 +44,23 @@ def registry():
 def auth():
     global data
     while True:
-        user_name=input('Введите логин:').strip().lower()
-        password=input('Введите пароль').strip()
+        user_name = input('Введите логин: ').strip().lower()
+        password = input('Введите пароль: ').strip()
+        if user_name=='/close':
+            break
+        
         if user_name in data:
-            if data[user_name]['password']==password:
+            if data[user_name]['password'] == password:
                 print('Вы успешно зашли')
                 break
+            else:
+                print('Ошибка: неверный пароль')
         else:
-            print('Ошибка неверный логин или пароль')
-        
-        
-
-        
+            print('Ошибка: неверный логин')
+            
         
     
-
 commands={'/registry': ['Регистрация', registry], '/auth': ['Войти в систему', auth], '/close': ['Выйти', goodbye]} 
-
-
 
 
 
@@ -77,6 +76,9 @@ def start():
      data = get_data_from_file()
      print(data)
      print('Авторизоваться или регистрация\n')
+     print('Что б зарегестрироваться введите команду:/registry')
+     print('Что б авторизоваться введите команду: /auth')
+     print('Что б посмотреть все команды введите /help')
      while True:
    
         command=input('-> ')
