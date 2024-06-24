@@ -47,8 +47,9 @@ def auth():
         user_name=input('Введите логин:').strip().lower()
         password=input('Введите пароль').strip()
         if user_name in data:
-            if data[user_name][password]==password:
+            if data[user_name]['password']==password:
                 print('Вы успешно зашли')
+                break
         else:
             print('Ошибка неверный логин или пароль')
         
