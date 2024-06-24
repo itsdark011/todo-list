@@ -29,9 +29,11 @@ def get_data_from_file(path: str = 'db.txt') -> dict:
     with open(path, '+rb') as f:
         file_data = f.read().decode('UTF-8')
         data_json = json.loads(file_data)
-
     if data_json == '':
         return {}
     return data_json
+
+
+    
 
 

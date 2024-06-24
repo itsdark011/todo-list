@@ -1,3 +1,4 @@
+from db import os,json
 from db import set_data_to_file, get_data_from_file
 
 
@@ -40,7 +41,29 @@ def registry():
 
     data=get_data_from_file()
 
-commands={'/registry': ['Регистрация', registry], '/close': ['Выйти', goodbye]}  
+def auth():
+    global data
+    while True:
+        user_name=input('Введите логин:').strip().lower()
+        password=input('Введите пароль').strip()
+        if user_name in data:
+            if data[user_name]['password']==password:
+                print('Вы успешно зашли')
+                break
+        else:
+            print('Ошибка неверный логин или пароль')
+        
+        
+
+        
+        
+    
+
+commands={'/registry': ['Регистрация', registry], '/auth': ['Войти в систему', auth], '/close': ['Выйти', goodbye]} 
+
+
+
+
 
 def help():
     print('Комманды для рабботы с программой:')
