@@ -2,8 +2,7 @@ from db import set_data_to_file, get_data_from_file
 from datetime import datetime
 
 
-data = {}
-current_user = ''
+
 
 
 def hello():
@@ -13,6 +12,9 @@ def hello():
 def goodbye():
     print('Пока')
     exit()
+
+data = {}
+current_user = ''
 
 
 def registry():
@@ -35,7 +37,7 @@ def registry():
         else:
             print('Пароль должен быть больше 6 символов:')
 
-    dict_registry[user_name]['todo_list'] = []
+    dict_registry[user_name]['todo_list'] = {}
 
     set_data_to_file({**dict_registry, **data})
     print('Регистрация прошла успешно')
@@ -53,7 +55,7 @@ def auth():
             break
 
         if user_name in data:
-            if data[user_name]['todo_list'] == password:
+            if data[user_name]['password'] == password:
                 print('Вы успешно зашли')
                 current_user = user_name
                 break
@@ -72,8 +74,7 @@ def add_new_do():
         return
     
     while True:
-        date = input(
-            'Введите дату на которое хотите указать дело:').replace(' ', '-')
+        date = input('Введите дату на которое хотите указать дело:').replace(' ', '-')
         try:
             date_object = datetime.strptime(date, '%Y-%m-%d')
             break
@@ -86,17 +87,16 @@ def add_new_do():
             continue
         break
 
-    if date_object in data[current_user]['todo_list']:
-        data[current_user]['todo_list'][date_object].append(action)
+    if date in data[current_user]['todo_list']:
+        data[current_user]['todo_list'][date].append(action)
     else:
-        data[current_user]['todo_list'][date_object] = [action]
+        data[current_user]['todo_list'][date] = [action]
 
     set_data_to_file(data)
     data = get_data_from_file()
 
 
-commands = {'/registry': ['Регистрация', registry], '/auth': ['Войти в систему',
-                                                              auth], '/close': ['Выйти', goodbye], '/add_new': ['Дата работ', add_new_do]}
+commands = {'/registry': ['Регистрация', registry], '/auth': ['Войти в систему',auth], '/close': ['Выйти', goodbye], '/add_new': ['Дата работ', add_new_do]}
 
 
 def help():
@@ -108,6 +108,7 @@ def help():
 def start():
     global data
     data = get_data_from_file()
+    print(data)
     help()
     while True:
 
